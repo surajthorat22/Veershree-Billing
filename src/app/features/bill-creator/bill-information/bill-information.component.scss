@@ -1,0 +1,19 @@
+.card__header p {
+  margin: 0.2rem 0 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem 1.1rem;
+}
+
+.field--wide {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 720px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

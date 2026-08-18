@@ -1,0 +1,16 @@
+<div class="app-shell">
+  <header class="app-header no-print">
+    <a routerLink="/create" class="brand">
+      <span class="brand__name">Veershree Realty</span>
+      <span class="brand__meta">Bill Generator</span>
+    </a>
+    <nav class="nav">
+      <a routerLink="/create" routerLinkActive="is-active">Create Bill</a>
+      <a routerLink="/preview" routerLinkActive="is-active">Preview</a>
+      <a routerLink="/settings" routerLinkActive="is-active">Settings</a>
+    </nav>
+  </header>
+  <main class="app-main">
+    <router-outlet />
+  </main>
+</div>

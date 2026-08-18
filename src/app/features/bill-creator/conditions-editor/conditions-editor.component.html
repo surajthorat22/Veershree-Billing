@@ -1,0 +1,26 @@
+<section class="card" [formGroup]="form()">
+  <div class="card__header card__header--row">
+    <div>
+      <h2>Conditions</h2>
+      <p>These notes appear on the bill. Edit them to match this customer.</p>
+    </div>
+    <button type="button" class="btn btn--primary" (click)="add()">+ Add Condition</button>
+  </div>
+
+  <div formArrayName="conditions" class="rows">
+    @if (conditions().length === 0) {
+      <div class="empty">
+        <p>No conditions added yet.</p>
+        <button type="button" class="btn btn--primary" (click)="add()">+ Add Condition</button>
+      </div>
+    }
+
+    @for (condition of conditions().controls; track $index; let i = $index) {
+      <div class="condition">
+        <span class="condition__index">{{ i + 1 }}</span>
+        <textarea [formControlName]="i" rows="2" placeholder="Enter condition text"></textarea>
+        <button type="button" class="btn btn--danger btn--small" (click)="remove(i)">Delete</button>
+      </div>
+    }
+  </div>
+</section>

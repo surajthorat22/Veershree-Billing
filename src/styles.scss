@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --navy: #1b2a4a;
+  --navy-deep: #121c33;
+  --gold: #b8954a;
+  --gold-soft: #d4bc7c;
+  --ink: #1f2933;
+  --muted: #5c6570;
+  --line: #e6e1d6;
+  --line-strong: #d2cbbd;
+  --paper: #f7f5f0;
+  --paper-soft: #fbfaf7;
+  --white: #ffffff;
+  --danger: #8a2f2f;
+  --shadow: 0 12px 40px rgba(18, 28, 51, 0.08);
+  --radius: 12px;
+  --font: Manrope, 'Segoe UI', sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font);
+  color: var(--ink);
+  background: #efece6;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--navy);
+  font-weight: 750;
+}
+
+h1 {
+  font-size: 1.7rem;
+}
+
+h2 {
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+}
+
+.card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.15rem 1.2rem 1.25rem;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+app-payment-list,
+app-payment-schedule,
+app-conditions-editor,
+app-bill-information,
+app-financial-summary {
+  display: block;
+}
+
+.card__header {
+  margin-bottom: 1rem;
+}
+
+.card__header h2 {
+  margin: 0;
+}
+
+.card__header p {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.field span {
+  font-size: 0.8rem;
+  font-weight: 650;
+  color: var(--ink);
+}
+
+.field em {
+  color: var(--gold);
+  font-style: normal;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  padding: 0.62rem 0.7rem;
+  font: inherit;
+  color: var(--ink);
+  background: white;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid rgba(184, 149, 74, 0.35);
+  border-color: var(--gold);
+}
+
+.field-error {
+  color: var(--danger);
+  font-size: 0.78rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 0.55rem 1rem;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  background: transparent;
+}
+
+.btn:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.btn--primary {
+  background: var(--navy);
+  color: white;
+}
+
+.btn--primary:hover {
+  background: var(--navy-deep);
+}
+
+.btn--ghost {
+  border-color: var(--line-strong);
+  color: var(--navy);
+  background: white;
+}
+
+.btn--danger {
+  color: var(--danger);
+  border-color: #ead4d4;
+  background: #fbf6f6;
+}
+
+.btn--small {
+  padding: 0.35rem 0.7rem;
+  font-size: 0.8rem;
+}
+
+.btn--large {
+  padding: 0.75rem 1.4rem;
+}
+
+@media print {
+  body {
+    background: white;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  @page {
+    size: A4;
+    margin: 10mm;
+  }
+}

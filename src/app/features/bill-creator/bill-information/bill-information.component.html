@@ -1,0 +1,84 @@
+<section class="card" [formGroup]="form()">
+  <div class="card__header">
+    <h2>Bill Information</h2>
+    <p>Enter the plot and customer details for this statement.</p>
+  </div>
+
+  <div class="grid">
+    <label class="field">
+      <span>Estimate Date <em>*</em></span>
+      <input type="date" formControlName="estimateDate" />
+      @if (showError('estimateDate')) {
+        <small class="field-error">Estimate date is required.</small>
+      }
+    </label>
+
+    <label class="field">
+      <span>Booking Date <em>*</em></span>
+      <input type="date" formControlName="bookingDate" />
+      @if (showError('bookingDate')) {
+        <small class="field-error">Booking date is required.</small>
+      }
+    </label>
+
+    <label class="field field--wide">
+      <span>Plot Name <em>*</em></span>
+      <input type="text" formControlName="plotName" placeholder="e.g. VEERSHREE VISTA RESIDENCY" />
+      @if (showError('plotName')) {
+        <small class="field-error">Plot name is required.</small>
+      }
+    </label>
+
+    <label class="field">
+      <span>Gat No.</span>
+      <input type="text" formControlName="gatNumber" placeholder="e.g. 18/6" />
+    </label>
+
+    <label class="field field--wide">
+      <span>Customer Name <em>*</em></span>
+      <input type="text" formControlName="customerName" placeholder="Customer full name" />
+      @if (showError('customerName')) {
+        <small class="field-error">Customer name is required.</small>
+      }
+    </label>
+
+    <label class="field">
+      <span>Plot No. <em>*</em></span>
+      <input type="text" formControlName="plotNumber" placeholder="e.g. 13,12" />
+      @if (showError('plotNumber')) {
+        <small class="field-error">Plot number is required.</small>
+      }
+    </label>
+
+    <label class="field">
+      <span>Plot Area</span>
+      <input type="number" min="0" step="0.01" formControlName="plotArea" placeholder="1350" />
+    </label>
+
+    <label class="field">
+      <span>Plot Area Unit</span>
+      <select formControlName="plotAreaUnit">
+        <option value="Sq.Ft">Sq.Ft</option>
+        <option value="Sq.M">Sq.M</option>
+        <option value="Other">Other</option>
+      </select>
+    </label>
+
+    <label class="field">
+      <span>Total Plot Amount <em>*</em></span>
+      <input
+        type="number"
+        min="0"
+        step="1"
+        formControlName="totalPlotAmount"
+        placeholder="3150000"
+      />
+      @if (form().controls.totalPlotAmount.value) {
+        <small>{{ form().controls.totalPlotAmount.value | inr }}</small>
+      }
+      @if (showError('totalPlotAmount')) {
+        <small class="field-error">Enter a valid amount (0 or more).</small>
+      }
+    </label>
+  </div>
+</section>

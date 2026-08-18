@@ -1,0 +1,99 @@
+<section class="card" [formGroup]="form()">
+  <div class="card__header card__header--row">
+    <div>
+      <h2>Received Payments</h2>
+      <p>Add every payment already received. Each method stays as its own row.</p>
+    </div>
+    <button type="button" class="btn btn--primary" (click)="addPayment()">+ Add Payment</button>
+  </div>
+
+  <div formArrayName="receivedPayments" class="rows">
+    @if (payments().length === 0) {
+      <div class="empty">
+        <p>No received payments added yet.</p>
+        <button type="button" class="btn btn--primary" (click)="addPayment()">+ Add Payment</button>
+      </div>
+    }
+
+    @for (row of payments().controls; track row.controls.id.value; let i = $index) {
+      <article class="row" [class.row--invalid]="invalidRow(i)" [formGroupName]="i">
+        @if (expandedId() === row.controls.id.value) {
+          <div class="row__grid">
+            <label class="field">
+              <span>Payment Date <em>*</em></span>
+              <input type="date" formControlName="date" />
+            </label>
+            <label class="field">
+              <span>Amount <em>*</em></span>
+              <input type="number" min="0.01" step="1" formControlName="amount" />
+            </label>
+            <label class="field">
+              <span>Payment Method <em>*</em></span>
+              <select formControlName="method">
+                @for (method of methods; track method) {
+                  <option [value]="method">{{ methodLabel(method) }}</option>
+                }
+              </select>
+            </label>
+            <label class="field">
+              <span>Paid To <em>*</em></span>
+              <input type="text" formControlName="paidTo" list="paid-to-options" />
+            </label>
+            <label class="field">
+              <span>Received By</span>
+              <input type="text" formControlName="receivedBy" placeholder="Authorized person" />
+            </label>
+            <label class="field">
+              <span>Reference / Cheque No.</span>
+              <input type="text" formControlName="reference" />
+            </label>
+            <label class="field">
+              <span>Bank Name</span>
+              <input type="text" formControlName="bankName" />
+            </label>
+            <label class="field">
+              <span>Description</span>
+              <input type="text" formControlName="description" />
+            </label>
+          </div>
+          @if (invalidRow(i)) {
+            <p class="field-error">
+              Date, amount, method and Paid To are required. Amount must be greater than 0.
+            </p>
+          }
+          <div class="row__actions">
+            <button type="button" class="btn btn--ghost" (click)="collapse()">Done</button>
+            <button type="button" class="btn btn--danger" (click)="remove(i)">Delete</button>
+          </div>
+        } @else {
+          <div class="row__summary">
+            <div>
+              <strong>{{ row.controls.date.value | displayDate }}</strong>
+              <span
+                >{{ methodLabel(row.controls.method.value) }} · Paid To:
+                {{ row.controls.paidTo.value }}</span
+              >
+            </div>
+            <div class="row__amount">{{ row.controls.amount.value | inr }}</div>
+            <div class="row__actions">
+              <button
+                type="button"
+                class="btn btn--ghost btn--small"
+                (click)="expand(row.controls.id.value)"
+              >
+                Edit
+              </button>
+              <button type="button" class="btn btn--danger btn--small" (click)="remove(i)">
+                Delete
+              </button>
+            </div>
+          </div>
+        }
+      </article>
+    }
+  </div>
+
+  <datalist id="paid-to-options">
+    <option value="Veershree Realty"></option>
+  </datalist>
+</section>

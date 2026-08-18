@@ -1,0 +1,22 @@
+<div class="upload">
+  <span class="upload__label">{{ label() }}</span>
+  @if (hint()) {
+    <span class="upload__hint">{{ hint() }}</span>
+  }
+
+  @if (image()) {
+    <div class="upload__preview">
+      <img [src]="image()" [alt]="label()" />
+      <button type="button" class="btn btn--ghost btn--small" (click)="remove()">Remove</button>
+    </div>
+  } @else {
+    <label class="upload__drop">
+      <input type="file" accept="image/*" (change)="onFileChange($event)" />
+      <span>Upload image</span>
+    </label>
+  }
+
+  @if (error) {
+    <p class="field-error">{{ error }}</p>
+  }
+</div>

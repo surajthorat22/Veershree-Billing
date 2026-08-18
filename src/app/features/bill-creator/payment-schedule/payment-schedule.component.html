@@ -1,0 +1,96 @@
+<section class="card" [formGroup]="form()">
+  <div class="card__header card__header--row">
+    <div>
+      <h2>Balance / Payment Schedule</h2>
+      <p>
+        Optional future payments. Outstanding balance is still calculated from received amounts.
+      </p>
+    </div>
+    <button type="button" class="btn btn--primary" (click)="addPayment()">+ Add Payment</button>
+  </div>
+
+  <div formArrayName="balancePayments" class="rows">
+    @if (payments().length === 0) {
+      <div class="empty">
+        <p>No future payments added yet.</p>
+        <button type="button" class="btn btn--primary" (click)="addPayment()">+ Add Payment</button>
+      </div>
+    }
+
+    @for (row of payments().controls; track row.controls.id.value; let i = $index) {
+      <article class="row" [class.row--invalid]="invalidRow(i)" [formGroupName]="i">
+        @if (expandedId() === row.controls.id.value) {
+          <div class="row__grid">
+            <label class="field">
+              <span>Due Date</span>
+              <input type="date" formControlName="dueDate" />
+            </label>
+            <label class="field">
+              <span>Amount <em>*</em></span>
+              <input type="number" min="0.01" step="1" formControlName="amount" />
+            </label>
+            <label class="field">
+              <span>Payment Method</span>
+              <select formControlName="method">
+                @for (method of methods; track method) {
+                  <option [value]="method">{{ methodLabel(method) }}</option>
+                }
+              </select>
+            </label>
+            <label class="field">
+              <span>Paid To</span>
+              <input type="text" formControlName="paidTo" list="schedule-paid-to-options" />
+            </label>
+            <label class="field field--wide">
+              <span>Description</span>
+              <input type="text" formControlName="description" />
+            </label>
+          </div>
+          @if (invalidRow(i)) {
+            <p class="field-error">
+              Amount must be greater than 0. Due date is required unless the method is Documentation
+              Day or Not Decided.
+            </p>
+          }
+          <div class="row__actions">
+            <button type="button" class="btn btn--ghost" (click)="collapse()">Done</button>
+            <button type="button" class="btn btn--danger" (click)="remove(i)">Delete</button>
+          </div>
+        } @else {
+          <div class="row__summary">
+            <div>
+              <strong>
+                @if (row.controls.method.value === 'DOCUMENTATION_DAY') {
+                  Documentation Day
+                } @else {
+                  {{ row.controls.dueDate.value | displayDate }}
+                }
+              </strong>
+              <span
+                >{{ methodLabel(row.controls.method.value) }} · Paid To:
+                {{ row.controls.paidTo.value || '—' }}</span
+              >
+            </div>
+            <div class="row__amount">{{ row.controls.amount.value | inr }}</div>
+            <div class="row__actions">
+              <button
+                type="button"
+                class="btn btn--ghost btn--small"
+                (click)="expand(row.controls.id.value)"
+              >
+                Edit
+              </button>
+              <button type="button" class="btn btn--danger btn--small" (click)="remove(i)">
+                Delete
+              </button>
+            </div>
+          </div>
+        }
+      </article>
+    }
+  </div>
+
+  <datalist id="schedule-paid-to-options">
+    <option value="Veershree Realty"></option>
+  </datalist>
+</section>

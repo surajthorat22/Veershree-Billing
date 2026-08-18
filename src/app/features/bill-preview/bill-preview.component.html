@@ -1,0 +1,33 @@
+<div class="preview">
+  <header class="preview__toolbar no-print">
+    <div>
+      <h1>Bill Preview</h1>
+      <p>{{ layout().name }}</p>
+    </div>
+    <div class="preview__actions">
+      <a routerLink="/create" class="btn btn--ghost">Edit</a>
+      <button type="button" class="btn btn--ghost" (click)="print()">Print</button>
+      <button
+        type="button"
+        class="btn btn--primary"
+        (click)="download()"
+        [disabled]="downloading()"
+      >
+        {{ downloading() ? 'Preparing PDF…' : 'Download PDF' }}
+      </button>
+    </div>
+  </header>
+
+  @if (error()) {
+    <p class="banner no-print" role="alert">{{ error() }}</p>
+  }
+
+  <div class="preview__stage">
+    <div class="a4-page" #page>
+      <ng-container
+        [ngComponentOutlet]="layout().component"
+        [ngComponentOutletInputs]="layoutInputs()"
+      />
+    </div>
+  </div>
+</div>

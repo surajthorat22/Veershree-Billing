@@ -1,0 +1,315 @@
+:host {
+  display: block;
+  color: #1f2933;
+  font-family: Manrope, 'Segoe UI', sans-serif;
+}
+
+.statement {
+  min-height: 269mm;
+  display: flex;
+  flex-direction: column;
+  gap: 7mm;
+}
+
+.letterhead {
+  display: flex;
+  justify-content: space-between;
+  gap: 8mm;
+  align-items: flex-start;
+  padding-bottom: 4.5mm;
+  border-bottom: 0.35mm solid #1b2a4a;
+  position: relative;
+}
+
+.letterhead::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1.3mm;
+  height: 0.35mm;
+  background: #b8954a;
+}
+
+.company-name {
+  margin: 0;
+  font-size: 16.5pt;
+  letter-spacing: 0.16em;
+  font-weight: 750;
+  color: #1b2a4a;
+  text-transform: uppercase;
+}
+
+.tagline {
+  margin: 1.5mm 0 0;
+  font-size: 7.5pt;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #b8954a;
+  font-weight: 650;
+}
+
+.contact {
+  margin: 3mm 0 0;
+  font-size: 8pt;
+  color: #5c6570;
+  max-width: 128mm;
+  line-height: 1.45;
+}
+
+.logo {
+  max-height: 22mm;
+  max-width: 42mm;
+  object-fit: contain;
+}
+
+.doc-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 6mm;
+}
+
+.doc-title h1 {
+  margin: 0;
+  font-size: 13pt;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #1b2a4a;
+  font-weight: 750;
+}
+
+.doc-dates {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2mm;
+  font-size: 8.5pt;
+  text-align: right;
+}
+
+.doc-dates em {
+  font-style: normal;
+  color: #5c6570;
+  margin-right: 3mm;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 7pt;
+}
+
+.meta {
+  display: grid;
+  grid-template-columns: 1.2fr 1.15fr 0.9fr;
+  gap: 4mm;
+}
+
+.meta h2,
+.block__head h2,
+.signoff h2 {
+  margin: 0 0 2.4mm;
+  font-size: 7.5pt;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #b8954a;
+  font-weight: 750;
+}
+
+.meta dl {
+  margin: 0;
+  background: #f7f5f0;
+  padding: 3.2mm 3.5mm;
+  border-radius: 1.5mm;
+}
+
+.meta dl > div + div {
+  margin-top: 2mm;
+}
+
+.meta dt {
+  font-size: 7pt;
+  color: #5c6570;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.meta dd {
+  margin: 0.6mm 0 0;
+  font-size: 9.5pt;
+  font-weight: 700;
+  color: #1b2a4a;
+}
+
+.figures {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border: 0.25mm solid #1b2a4a;
+}
+
+.figures > div {
+  padding: 3.8mm 4mm;
+}
+
+.figures > div + div {
+  border-left: 0.25mm solid #d9d3c7;
+}
+
+.figures span {
+  display: block;
+  font-size: 7pt;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #5c6570;
+}
+
+.figures strong {
+  display: block;
+  margin-top: 1.4mm;
+  font-size: 12.5pt;
+  font-variant-numeric: tabular-nums;
+  color: #1b2a4a;
+}
+
+.figures__balance {
+  background: #1b2a4a;
+}
+
+.figures__balance span,
+.figures__balance strong {
+  color: #fff;
+}
+
+.block {
+  page-break-inside: avoid;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 8.4pt;
+}
+
+th,
+td {
+  padding: 2.2mm 2mm;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: #1b2a4a;
+  color: #fff;
+  font-size: 7pt;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 650;
+}
+
+td {
+  border-bottom: 0.2mm solid #e6e1d6;
+}
+
+td small {
+  display: block;
+  margin-top: 0.7mm;
+  color: #5c6570;
+  font-size: 7.2pt;
+}
+
+.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.empty {
+  text-align: center;
+  color: #5c6570;
+  font-style: italic;
+}
+
+tfoot td {
+  border-bottom: 0;
+  font-weight: 750;
+  color: #1b2a4a;
+  background: #f7f5f0;
+}
+
+.conditions ol {
+  margin: 0;
+  padding-left: 5mm;
+  font-size: 8.5pt;
+  line-height: 1.55;
+  color: #2c333a;
+}
+
+.conditions li + li {
+  margin-top: 1.4mm;
+}
+
+.signoff {
+  margin-top: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10mm;
+  padding-top: 4mm;
+  page-break-inside: avoid;
+}
+
+.signoff p {
+  margin: 0 0 6mm;
+  font-size: 9pt;
+}
+
+.sign-line {
+  margin-top: 14mm;
+  border-top: 0.2mm solid #1b2a4a;
+  padding-top: 1.5mm;
+  font-size: 7.5pt;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #5c6570;
+  width: 48mm;
+}
+
+.marks {
+  min-height: 22mm;
+  display: flex;
+  align-items: flex-end;
+  gap: 5mm;
+}
+
+.signature {
+  max-height: 18mm;
+  max-width: 42mm;
+  object-fit: contain;
+}
+
+.stamp {
+  max-height: 24mm;
+  max-width: 24mm;
+  object-fit: contain;
+}
+
+.auth-name {
+  margin: 2mm 0 0 !important;
+  font-weight: 750;
+  color: #1b2a4a;
+}
+
+.auth-role {
+  margin: 0.6mm 0 0 !important;
+  font-size: 8pt;
+  color: #5c6570;
+}
+
+@media print {
+  .statement,
+  table,
+  th,
+  .figures,
+  .figures__balance,
+  .meta dl,
+  tfoot td {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}
