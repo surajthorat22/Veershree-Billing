@@ -1,18 +1,13 @@
 <section class="card" [formGroup]="form()">
   <div class="card__header card__header--row">
-    <div>
-      <h2>Balance / Payment Schedule</h2>
-      <p>
-        Optional future payments. Outstanding balance is still calculated from received amounts.
-      </p>
-    </div>
-    <button type="button" class="btn btn--primary" (click)="addPayment()">+ Add Payment</button>
+    <h2>Balance Schedule</h2>
+    <button type="button" class="btn btn--ghost" (click)="addPayment()">+ Add</button>
   </div>
 
   <div formArrayName="balancePayments" class="rows">
     @if (payments().length === 0) {
       <div class="empty">
-        <p>No future payments added yet.</p>
+        <p>No future payments yet.</p>
         <button type="button" class="btn btn--primary" (click)="addPayment()">+ Add Payment</button>
       </div>
     }
@@ -30,7 +25,7 @@
               <input type="number" min="0.01" step="1" formControlName="amount" />
             </label>
             <label class="field">
-              <span>Payment Method</span>
+              <span>Method</span>
               <select formControlName="method">
                 @for (method of methods; track method) {
                   <option [value]="method">{{ methodLabel(method) }}</option>
@@ -42,15 +37,12 @@
               <input type="text" formControlName="paidTo" list="schedule-paid-to-options" />
             </label>
             <label class="field field--wide">
-              <span>Description</span>
+              <span>Note</span>
               <input type="text" formControlName="description" />
             </label>
           </div>
           @if (invalidRow(i)) {
-            <p class="field-error">
-              Amount must be greater than 0. Due date is required unless the method is Documentation
-              Day or Not Decided.
-            </p>
+            <p class="field-error">Amount is required. Add due date unless Documentation Day.</p>
           }
           <div class="row__actions">
             <button type="button" class="btn btn--ghost" (click)="collapse()">Done</button>
@@ -66,10 +58,7 @@
                   {{ row.controls.dueDate.value | displayDate }}
                 }
               </strong>
-              <span
-                >{{ methodLabel(row.controls.method.value) }} · Paid To:
-                {{ row.controls.paidTo.value || '—' }}</span
-              >
+              <span>{{ methodLabel(row.controls.method.value) }} · {{ row.controls.paidTo.value || '—' }}</span>
             </div>
             <div class="row__amount">{{ row.controls.amount.value | inr }}</div>
             <div class="row__actions">

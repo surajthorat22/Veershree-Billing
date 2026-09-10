@@ -2,31 +2,29 @@
   <header class="page__header">
     <div>
       <h1>Create Bill</h1>
-      <p>Enter bill details, add payments, then preview the statement.</p>
+      <p>Fill details → add payments → preview</p>
     </div>
     <div class="page__actions">
-      <button type="button" class="btn btn--ghost" (click)="loadSample()">Load sample</button>
+      <button type="button" class="btn btn--ghost" (click)="loadSample()">Sample</button>
       <button type="button" class="btn btn--ghost" (click)="clearDraft()">Clear</button>
       <button type="button" class="btn btn--primary" (click)="preview()">Preview</button>
     </div>
   </header>
 
   <form [formGroup]="form" (ngSubmit)="preview()" novalidate>
-    <section class="card layout-card">
-      <label class="field">
-        <span>Document Layout</span>
+    <div class="layout-bar">
+      <label class="field layout-field">
+        <span>Layout</span>
         <select formControlName="layoutId">
           @for (layout of layouts; track layout.id) {
             <option [value]="layout.id">{{ layout.name }}</option>
           }
         </select>
       </label>
-    </section>
+    </div>
 
     @if (submitted() && form.invalid) {
-      <p class="banner" role="alert">
-        Please complete the required fields before previewing the bill.
-      </p>
+      <p class="banner" role="alert">Please fill the required fields.</p>
     }
 
     <div class="layout">

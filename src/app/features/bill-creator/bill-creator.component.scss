@@ -2,68 +2,67 @@
 .page form {
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
-}
-
-.page__header,
-.page__footer,
-.layout,
-.layout-card {
-  width: 100%;
+  gap: 0.35rem;
 }
 
 .page__header {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  align-items: flex-start;
+  align-items: flex-end;
   flex-wrap: wrap;
+  padding-bottom: 1.2rem;
+  margin-bottom: 0.4rem;
+  border-bottom: 1px solid var(--line-strong);
 }
 
 .page__header h1 {
   margin: 0;
 }
 
-.page__header p,
-.card__header p {
-  margin: 0.25rem 0 0;
+.page__header p {
+  margin: 0.3rem 0 0;
   color: var(--muted);
+  font-size: 0.9rem;
 }
 
 .page__actions,
 .page__footer {
   display: flex;
-  gap: 0.6rem;
+  gap: 0.45rem;
   flex-wrap: wrap;
 }
 
 .page__footer {
   justify-content: flex-end;
-  padding-bottom: 1.5rem;
+  padding: 1.4rem 0 1.8rem;
+  border-top: 1px solid var(--line-strong);
+  margin-top: 0.5rem;
+}
+
+.layout-bar {
+  max-width: 18rem;
+  padding: 0.4rem 0 0.8rem;
 }
 
 .layout {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.1rem;
+  gap: 1.5rem;
   align-items: start;
 }
 
-.layout-card {
-  max-width: 28rem;
-}
-
 .banner {
-  margin: 0;
-  padding: 0.8rem 1rem;
-  border-radius: 10px;
-  background: #f7ecec;
+  margin: 0.4rem 0 0.8rem;
+  padding: 0.7rem 0;
   color: var(--danger);
-  border: 1px solid #ead4d4;
+  border-bottom: 1px solid #ead4d4;
+  font-size: 0.9rem;
 }
 
 @media (min-width: 1080px) {
   .layout {
-    grid-template-columns: minmax(0, 1.6fr) minmax(280px, 0.9fr);
+    grid-template-columns: minmax(0, 1.7fr) minmax(260px, 0.8fr);
+    gap: 2.5rem;
   }
 }

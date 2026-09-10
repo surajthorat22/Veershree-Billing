@@ -1,4 +1,5 @@
 import { Component, computed, input } from '@angular/core';
+import { DEFAULT_BRAND_LOGO } from '../../core/defaults/defaults';
 import { type BillData, type PaymentScheduleEntry } from '../../core/models/bill.model';
 import { paymentMethodLabel } from '../../core/models/payment-methods';
 import { getTotalBalance, getTotalReceived } from '../../core/utils/calculations';
@@ -14,6 +15,7 @@ export class VeershreePaymentStatement {
   readonly bill = input.required<BillData>();
 
   protected readonly company = computed(() => this.bill().company);
+  protected readonly logoSrc = computed(() => this.company().logo?.trim() || DEFAULT_BRAND_LOGO);
   protected readonly totalReceived = computed(() => getTotalReceived(this.bill().receivedPayments));
   protected readonly totalBalance = computed(() =>
     getTotalBalance(this.bill().totalPlotAmount, this.bill().receivedPayments),
@@ -25,9 +27,22 @@ export class VeershreePaymentStatement {
     }
     return `${area} ${this.bill().plotAreaUnit ?? ''}`.trim();
   });
-  protected readonly contactLine = computed(() => {
-    const company = this.company();
-    return [company.address, company.contact, company.email].filter(Boolean).join('  ·  ');
+
+  protected readonly showReceivedBy = computed(() =>
+    this.bill().receivedPayments.some((payment) => !!payment.receivedBy?.trim()),
+  );
+  protected readonly showBank = computed(() =>
+    this.bill().receivedPayments.some((payment) => !!payment.bankName?.trim()),
+  );
+  protected readonly showReference = computed(() =>
+    this.bill().receivedPayments.some((payment) => !!payment.reference?.trim()),
+  );
+  protected readonly receivedColspan = computed(() => {
+    let cols = 5; // Sr, Date, Payment By, Paid To, Amount
+    if (this.showReceivedBy()) cols += 1;
+    if (this.showBank()) cols += 1;
+    if (this.showReference()) cols += 1;
+    return cols;
   });
 
   protected formatMoney(value: number | null | undefined): string {
@@ -47,5 +62,16 @@ export class VeershreePaymentStatement {
       return 'Documentation Day';
     }
     return this.formatDate(entry.dueDate);
+  }
+
+  /** Show the full customer name in place of generic "customer" text. */
+  protected displayCondition(text: string): string {
+    const name = this.bill().customerName?.trim();
+    if (!name) {
+      return text;
+    }
+    return text
+      .replace(/\bthe customer\b/gi, name)
+      .replace(/\bcustomer\b/gi, name);
   }
 }

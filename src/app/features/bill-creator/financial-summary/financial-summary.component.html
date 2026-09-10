@@ -1,26 +1,18 @@
-<aside class="summary card">
-  <div class="card__header">
-    <h2>Financial Summary</h2>
-    <p>Calculated from plot amount and received payments.</p>
-  </div>
+<aside class="summary">
+  <h2>Summary</h2>
 
   <dl class="summary__list">
     <div>
-      <dt>Total Plot Amount</dt>
+      <dt>Plot Amount</dt>
       <dd>{{ totalPlotAmount() | inr }}</dd>
     </div>
     <div>
-      <dt>Total Received</dt>
+      <dt>Received</dt>
       <dd>{{ totalReceived() | inr }}</dd>
     </div>
     <div class="summary__outstanding">
-      <dt>Outstanding Balance</dt>
+      <dt>Balance</dt>
       <dd>{{ totalBalance() | inr }}</dd>
     </div>
   </dl>
-
-  <p class="summary__note">
-    Payment schedule total: <strong>{{ totalScheduled() | inr }}</strong>
-    <span> This is a plan only. Outstanding is always plot amount minus received payments. </span>
-  </p>
 </aside>

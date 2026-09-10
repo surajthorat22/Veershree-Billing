@@ -1,21 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@400;500;600;700&display=swap');
 
 :root {
-  --navy: #1b2a4a;
-  --navy-deep: #121c33;
-  --gold: #b8954a;
-  --gold-soft: #d4bc7c;
-  --ink: #1f2933;
-  --muted: #5c6570;
-  --line: #e6e1d6;
-  --line-strong: #d2cbbd;
-  --paper: #f7f5f0;
-  --paper-soft: #fbfaf7;
+  --navy: #111111;
+  --navy-deep: #0d0d0d;
+  --gold: #8a8175;
+  --gold-soft: #c4b8a8;
+  --ink: #161513;
+  --muted: #6b6560;
+  --line: #ebe6de;
+  --line-strong: #ddd6cb;
+  --paper: #f7f4ef;
+  --paper-soft: #fbfaf8;
   --white: #ffffff;
   --danger: #8a2f2f;
-  --shadow: 0 12px 40px rgba(18, 28, 51, 0.08);
-  --radius: 12px;
-  --font: Manrope, 'Segoe UI', sans-serif;
+  --shadow: none;
+  --radius: 14px;
+  --font: Outfit, 'Segoe UI', sans-serif;
 }
 
 *,
@@ -33,31 +33,34 @@ body {
 body {
   font-family: var(--font);
   color: var(--ink);
-  background: #efece6;
+  background: #f3efe8;
 }
 
 h1,
 h2,
 h3 {
   color: var(--navy);
-  font-weight: 750;
+  font-weight: 650;
 }
 
 h1 {
-  font-size: 1.7rem;
+  font-size: 1.65rem;
+  letter-spacing: -0.02em;
 }
 
 h2 {
-  font-size: 1.05rem;
-  letter-spacing: 0.01em;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  font-weight: 650;
 }
 
 .card {
-  background: var(--white);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 1.15rem 1.2rem 1.25rem;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 1.35rem 0 1.5rem;
+  box-shadow: none;
+  border-bottom: 1px solid var(--line-strong);
 }
 
 app-payment-list,
@@ -67,9 +70,8 @@ app-bill-information,
 app-financial-summary {
   display: block;
 }
-
-.card__header {
-  margin-bottom: 1rem;
+i.card__header {
+  margin-bottom: 1.1rem;
 }
 
 .card__header h2 {
@@ -77,9 +79,9 @@ app-financial-summary {
 }
 
 .card__header p {
-  margin: 0.25rem 0 0;
+  margin: 0.2rem 0 0;
   color: var(--muted);
-  font-size: 0.88rem;
+  font-size: 0.84rem;
 }
 
 .field {
@@ -90,13 +92,14 @@ app-financial-summary {
 }
 
 .field span {
-  font-size: 0.8rem;
-  font-weight: 650;
-  color: var(--ink);
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.02em;
 }
 
 .field em {
-  color: var(--gold);
+  color: #b08d4d;
   font-style: normal;
 }
 
@@ -104,28 +107,41 @@ input,
 select,
 textarea {
   width: 100%;
-  border: 1px solid var(--line-strong);
-  border-radius: 8px;
-  padding: 0.62rem 0.7rem;
+  border: 0;
+  border-bottom: 1px solid var(--line-strong);
+  border-radius: 0;
+  padding: 0.7rem 0.1rem;
   font: inherit;
   color: var(--ink);
-  background: white;
+  background: transparent;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
 }
 
 textarea {
   resize: vertical;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  padding: 0.7rem 0.8rem;
+  background: rgba(255, 255, 255, 0.55);
 }
 
 input:focus,
 select:focus,
 textarea:focus {
-  outline: 2px solid rgba(184, 149, 74, 0.35);
-  border-color: var(--gold);
+  outline: none;
+  border-color: #111;
+  background: transparent;
+}
+
+textarea:focus {
+  background: #fff;
 }
 
 .field-error {
   color: var(--danger);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
 }
 
 .btn {
@@ -134,10 +150,10 @@ textarea:focus {
   justify-content: center;
   border: 1px solid transparent;
   border-radius: 999px;
-  padding: 0.55rem 1rem;
+  padding: 0.55rem 1.05rem;
   font: inherit;
-  font-size: 0.88rem;
-  font-weight: 700;
+  font-size: 0.86rem;
+  font-weight: 600;
   cursor: pointer;
   text-decoration: none;
   background: transparent;
@@ -154,28 +170,36 @@ textarea:focus {
 }
 
 .btn--primary:hover {
-  background: var(--navy-deep);
+  background: #000;
 }
 
 .btn--ghost {
-  border-color: var(--line-strong);
+  border-color: transparent;
   color: var(--navy);
-  background: white;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.btn--ghost:hover {
+  background: #fff;
 }
 
 .btn--danger {
   color: var(--danger);
-  border-color: #ead4d4;
-  background: #fbf6f6;
+  border-color: transparent;
+  background: transparent;
+}
+
+.btn--danger:hover {
+  background: #f8ecec;
 }
 
 .btn--small {
-  padding: 0.35rem 0.7rem;
-  font-size: 0.8rem;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.78rem;
 }
 
 .btn--large {
-  padding: 0.75rem 1.4rem;
+  padding: 0.8rem 1.5rem;
 }
 
 @media print {

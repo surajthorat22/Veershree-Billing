@@ -1,155 +1,123 @@
 <article class="statement">
-  <header class="letterhead">
-    <div class="letterhead__brand">
-      <p class="company-name">{{ company().name }}</p>
-      @if (company().tagline) {
-        <p class="tagline">{{ company().tagline }}</p>
-      }
-      @if (contactLine()) {
-        <p class="contact">{{ contactLine() }}</p>
-      }
+  <header class="head">
+    <div>
+      <h1>VEERSHREE REALTY</h1>
+      <p class="subtitle">PAYMENT STATEMENT</p>
     </div>
-    @if (company().logo) {
-      <img class="logo" [src]="company().logo" alt="" />
-    }
+    <img class="logo" [src]="logoSrc()" alt="Veershree Realty" />
   </header>
 
-  <div class="doc-title">
-    <h1>Payment Statement</h1>
-    <div class="doc-dates">
-      <span><em>Estimate Date</em> {{ formatDate(bill().estimateDate) }}</span>
-      <span><em>Booking Date</em> {{ formatDate(bill().bookingDate) }}</span>
-    </div>
-  </div>
 
   <section class="meta">
-    <div>
-      <h2>Project Details</h2>
-      <dl>
-        <div>
-          <dt>Plot Name</dt>
-          <dd>{{ bill().plotName || '—' }}</dd>
-        </div>
-        <div>
-          <dt>Gat No.</dt>
-          <dd>{{ bill().gatNumber || '—' }}</dd>
-        </div>
-      </dl>
+    <div class="meta__left">
+      <div class="meta__item">
+        <span>Customer</span>
+        <strong>{{ bill().customerName || '—' }}</strong>
+      </div>
+      <div class="meta__item">
+        <span>Plot Name</span>
+        <strong>{{ bill().plotName || '—' }}</strong>
+      </div>
+      <div class="meta__item">
+        <span>Plot No.</span>
+        <strong>{{ bill().plotNumber || '—' }}</strong>
+      </div>
+      <div class="meta__item">
+        <span>Gat No.</span>
+        <strong>{{ bill().gatNumber || '—' }}</strong>
+      </div>
+      <div class="meta__item">
+        <span>Area</span>
+        <strong>{{ plotAreaLabel() }}</strong>
+      </div>
     </div>
-    <div>
-      <h2>Customer Details</h2>
-      <dl>
-        <div>
-          <dt>Customer Name</dt>
-          <dd>{{ bill().customerName || '—' }}</dd>
-        </div>
-      </dl>
-    </div>
-    <div>
-      <h2>Plot Details</h2>
-      <dl>
-        <div>
-          <dt>Plot No.</dt>
-          <dd>{{ bill().plotNumber || '—' }}</dd>
-        </div>
-        <div>
-          <dt>Plot Area</dt>
-          <dd>{{ plotAreaLabel() }}</dd>
-        </div>
-      </dl>
+    <div class="meta__right">
+      <div class="meta__item">
+        <span>Estimate Date</span>
+        <strong>{{ formatDate(bill().estimateDate) }}</strong>
+      </div>
+      <div class="meta__item">
+        <span>Booking Date</span>
+        <strong>{{ formatDate(bill().bookingDate) }}</strong>
+      </div>
     </div>
   </section>
 
-  <section class="figures">
-    <div>
-      <span>Total Plot Amount</span>
-      <strong>{{ formatMoney(bill().totalPlotAmount) }}</strong>
-    </div>
-    <div>
-      <span>Total Received</span>
-      <strong>{{ formatMoney(totalReceived()) }}</strong>
-    </div>
-    <div class="figures__balance">
-      <span>Outstanding</span>
-      <strong>{{ formatMoney(totalBalance()) }}</strong>
-    </div>
+  <section class="plot-amount">
+    <span>Total Plot Amount</span>
+    <strong>{{ formatMoney(bill().totalPlotAmount) }}</strong>
   </section>
 
-  <section class="block">
-    <div class="block__head">
-      <h2>Received Payments</h2>
-    </div>
-    <table>
+  <section class="block block--received">
+    <h2>Received Payments</h2>
+    <table class="dense">
       <thead>
         <tr>
           <th>Sr.</th>
-          <th>Payment Date</th>
-          <th>Payment Method</th>
+          <th>Date</th>
+          <th>Payment By</th>
           <th>Paid To</th>
-          <th>Reference</th>
+          @if (showReceivedBy()) {
+            <th>Received By</th>
+          }
+          @if (showBank()) {
+            <th>Bank</th>
+          }
+          @if (showReference()) {
+            <th>Reference</th>
+          }
           <th class="num">Amount</th>
         </tr>
       </thead>
       <tbody>
         @if (bill().receivedPayments.length === 0) {
           <tr>
-            <td colspan="6" class="empty">No payments received yet.</td>
+            <td [attr.colspan]="receivedColspan()" class="empty">No payments received yet.</td>
           </tr>
         }
         @for (payment of bill().receivedPayments; track payment.id; let i = $index) {
           <tr>
             <td>{{ i + 1 }}</td>
             <td>{{ formatDate(payment.date) }}</td>
-            <td>
-              {{ methodLabel(payment.method) }}
-              @if (payment.description) {
-                <small>{{ payment.description }}</small>
-              }
-            </td>
-            <td>
-              {{ payment.paidTo }}
-              @if (payment.receivedBy) {
-                <small>Received by {{ payment.receivedBy }}</small>
-              }
-            </td>
-            <td>
-              {{ payment.reference || '—' }}
-              @if (payment.bankName) {
-                <small>{{ payment.bankName }}</small>
-              }
-            </td>
+            <td>{{ methodLabel(payment.method) }}</td>
+            <td>{{ payment.paidTo || '—' }}</td>
+            @if (showReceivedBy()) {
+              <td>{{ payment.receivedBy || '—' }}</td>
+            }
+            @if (showBank()) {
+              <td>{{ payment.bankName || '—' }}</td>
+            }
+            @if (showReference()) {
+              <td>{{ payment.reference || '—' }}</td>
+            }
             <td class="num">{{ formatMoney(payment.amount) }}</td>
           </tr>
         }
       </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="5">Total Received Amount</td>
-          <td class="num">{{ formatMoney(totalReceived()) }}</td>
-        </tr>
-      </tfoot>
     </table>
+    <div class="total total--received">
+      <span>Total Received</span>
+      <strong>{{ formatMoney(totalReceived()) }}</strong>
+    </div>
   </section>
 
-  <section class="block">
-    <div class="block__head">
-      <h2>Balance / Payment Schedule</h2>
-    </div>
-    <table>
+  <section class="block block--balance">
+    <h2>Balance Schedule</h2>
+    <table class="dense">
       <thead>
         <tr>
           <th>Sr.</th>
           <th>Due Date</th>
-          <th>Payment Method</th>
+          <th>Payment By</th>
           <th>Paid To</th>
-          <th>Description</th>
+          <th>Note</th>
           <th class="num">Amount</th>
         </tr>
       </thead>
       <tbody>
         @if (bill().balancePayments.length === 0) {
           <tr>
-            <td colspan="6" class="empty">No scheduled payments.</td>
+            <td colspan="6" class="empty">No schedule added.</td>
           </tr>
         }
         @for (entry of bill().balancePayments; track entry.id; let i = $index) {
@@ -163,50 +131,33 @@
           </tr>
         }
       </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="5">Total Balance Amount</td>
-          <td class="num">{{ formatMoney(totalBalance()) }}</td>
-        </tr>
-      </tfoot>
     </table>
+    <div class="total total--balance">
+      <span>Total Balance</span>
+      <strong>{{ formatMoney(totalBalance()) }}</strong>
+    </div>
   </section>
 
   @if (bill().conditions.length > 0) {
-    <section class="block conditions">
-      <div class="block__head">
-        <h2>Conditions</h2>
-      </div>
+    <section class="block notes">
+      <h2>Conditions</h2>
       <ol>
         @for (condition of bill().conditions; track $index) {
-          <li>{{ condition }}</li>
+          <li>{{ displayCondition(condition) }}</li>
         }
       </ol>
     </section>
   }
 
   <section class="signoff">
-    <div class="signoff__party">
+    <div>
       <h2>Customer</h2>
-      <p>Name: {{ bill().customerName || '________________' }}</p>
+      <p>{{ bill().customerName || '________________' }}</p>
       <div class="sign-line">Signature</div>
     </div>
-    <div class="signoff__party signoff__company">
-      <h2>For {{ company().name }}</h2>
-      <div class="marks">
-        @if (company().signature) {
-          <img class="signature" [src]="company().signature" alt="Authorized signature" />
-        } @else {
-          <div class="sign-line">Authorized Signature</div>
-        }
-        @if (company().stamp) {
-          <img class="stamp" [src]="company().stamp" alt="Company stamp" />
-        }
-      </div>
-      <p class="auth-name">{{ company().authorizedPerson || 'Authorized Signatory' }}</p>
-      @if (company().designation) {
-        <p class="auth-role">{{ company().designation }}</p>
-      }
+    <div>
+      <h2>For Veershree Realty</h2>
+      <div class="sign-line">Authorized Signature</div>
     </div>
   </section>
 </article>
