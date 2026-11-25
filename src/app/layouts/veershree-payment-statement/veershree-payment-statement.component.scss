@@ -57,7 +57,7 @@ h1 {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   font-weight: 600;
-  color: #666;
+  color: #111;
 }
 
 .plot-amount strong {
@@ -75,11 +75,11 @@ h2 {
 }
 
 .block--received h2 {
-  color: #1a6b45;
+  color: #111;
 }
 
 .block--balance h2 {
-  color: #8a5a12;
+  color: #111;
 }
 
 .meta {
@@ -116,7 +116,7 @@ h2 {
 
 .meta__item span {
   font-size: 7.2pt;
-  color: #666;
+  color: #111;
 }
 
 .meta__item strong {
@@ -148,11 +148,11 @@ th {
 }
 
 .block--received thead th {
-  background: #1a6b45;
+  background: #111;
 }
 
 .block--balance thead th {
-  background: #8a5a12;
+  background: #111;
 }
 
 td {
@@ -168,7 +168,7 @@ td {
 
 .empty {
   text-align: center;
-  color: #666;
+  color: #111;
   padding: 3mm !important;
 }
 
@@ -238,7 +238,7 @@ td {
   border-top: 0.2mm solid #111;
   padding-top: 1.2mm;
   font-size: 7pt;
-  color: #666;
+  color: #111;
 }
 
 @media print {
